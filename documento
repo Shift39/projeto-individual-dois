@@ -1,0 +1,85 @@
+from wordcloud import WordCloud
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from PIL import Image
+import random
+
+
+vetor = []
+
+for i in range(500):
+    vetor.append("dashboard_não_aparece")
+
+for ia in range(161):
+    vetor.append("dashboard_travado")
+
+for iaa in range(121):
+    vetor.append("temperatura_elevada")
+
+for its in range(100):
+    vetor.append("CPU_consumo_elevado")
+
+for its in range(100):
+    vetor.append("RAM_elevada")
+
+for its in range(100):
+    vetor.append("wifi_lento")
+
+for its in range(800):
+    vetor.append("super_aqueceu")
+
+for its in range(300):
+    vetor.append("pani_no_sistema")
+
+for el in range(101):
+    vetor.append("aplicação_lenta")
+
+for ela in range(200):
+    vetor.append("upload_lento")
+
+for pa in range(21):
+    vetor.append("download_lento")
+
+for po in range(21):
+    vetor.append("memoria_cheia")
+
+for ala in range(21):
+    vetor.append("alerta_dispara")
+
+for log in range(21):
+    vetor.append("dados_incorretos")
+
+for lu in range(21):
+    vetor.append("disco_consumo_elevado")
+
+for at in range(41):
+    vetor.append("usuario_não_pode_ser_cadastrado")
+
+for vb in range(21):
+    vetor.append("maquina_não_pode_ser_cadastrada")
+
+for nm in range(21):
+    vetor.append("login_não_funciona")
+
+
+
+
+
+print(vetor)
+
+mask = np.array(Image.open("yan.jpg"))
+
+
+
+tentativa = random.sample(vetor, 1000)
+
+
+tentativa = ' '.join(str(x) for x in tentativa)
+
+Mywordcloud = WordCloud(collocations = False, background_color = 'whitesmoke', mask = mask).generate(tentativa)
+
+
+plt.imshow(Mywordcloud, interpolation='bilinear')
+plt.axis("off")
+plt.show()
