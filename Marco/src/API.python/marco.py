@@ -1,6 +1,6 @@
 import psutil
 import os
-import mysql.connector as conector
+import pymysql as conector
 import csv
 import requests
 import gzip
@@ -10,11 +10,11 @@ import sys
 
 con = conector.connect(user='aluno', password='sptech',
                               host='127.0.0.1',
-                              database='db_test');
+                              database='P1');
 cursor = con.cursor();
 
 i=0;
-contador=2;
+contador=20;
 
 CPU=[]
 RAM=[]
@@ -23,25 +23,27 @@ TEMPERATURA=[22,222,22,22]
 
 
 while(i<contador):
-    i=i+1;
+    i += 1
 
     cpu = psutil.cpu_percent(4);
-    ram = psutil.virtual_memory()[2]
-    disco = round(psutil.disk_usage('/').total/(1024*1024*1024),1);
+    ram = psutil.virtual_memory()[2] / 10
+    disco = round(psutil.disk_usage('/').total/(1024*1024*1024),1)
    
 
     # CSV_URL="http://192.168.101.5:8085"
 
     # with requests.Session() as crawler:
     #     temp = crawler.get(CSV_URL)
-
+    CPU.append(cpu)
+    RAM.append(ram)
+    DISCO.append(disco)
    
     # cursor.execute("USE db_test")
-    # cursor.execute(f"INSERTO INTO metricas VALUES(1,{cpu},{ram},{disco},null)")
-
-    CPU.append(cpu);
-    RAM.append(ram);
-    DISCO.append(disco);
+    cursor.execute(f"Insert into CPU_metricas values({i}, 33.1,{ram}, {cpu}, {disco},1);")
+    con.commit()
+    cursor.execute(f"select * from CPU_metricas")
+    resultado = cursor.fetchall() # fetchone
+    print(resultado)
     # TEMPERATURA.append(temp);  
 
    
