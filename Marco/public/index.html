@@ -13,22 +13,15 @@
         integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/1ab94d0eba.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
+    
 </head>
 <body>
   
-  <div class="container-intermedio">
-    <img src="./icons marco/bell-solid.svg" alt="" style="height: 2rem; margin-top: 1rem;">
-    <img src="./icons marco/chart-line-solid.svg" alt="" style="height: 2rem;">
-    <img src="./icons marco/house-solid.svg" alt="" style="height: 2rem;">
-    <img src="./icons marco/bell-solid.svg" alt="" style="height: 2rem;">
-    <img src="" alt="" style="height: 4rem;">
-    
-    <img src="" alt="" style="height: 2rem;">
-    <img src="" alt="" style="height: 2rem;">
-    <img src="" alt="" style="height: 2rem;">
-    <img src="../../Site/public/assets/imgs/logo.png" alt="" style="height: 2rem;">
-  </div>
-  <!-- <div class="fundo">
+<div class="universo">
+  
+<div class="cabeca">
+
+  
     <div class="header">
         <div class="container d-flex my-2 w-100">
             <a href="index.html" class="titulo">
@@ -55,63 +48,106 @@
             </ul>
         </div>
     </div> 
-    </div>-->
     
-    <div class="container-um">
-        <b class="letras" style="margin-top: 1rem;">Perfil</b>
-        <b class="letras">Dashboard</b>
-        <b class="letras">Home</b>
-        <b class="letras">Alerts</b>
-        <b class="letras"></b>
-        <b class="letras"></b>
-        <b class="letras"></b>
-        <b class="letras"></b>
-        <b class="letras"></b>
-        <b class="letras"></b>
-        <b class="letras">Sair</b>
+
+</div>
 
 
-    </div>
+<div class="corpo">
+
+
+  <div class="lateral-esquerda">
+    <img src="./icons marco/bell-solid.svg" alt="" style="height: 2rem; margin-top: 1rem;">
+    <img src="./icons marco/chart-line-solid.svg" alt="" style="height: 2rem;">
+    <img src="./icons marco/house-solid.svg" alt="" style="height: 2rem;">
+    <img src="./icons marco/bell-solid.svg" alt="" style="height: 2rem;">
+    <img src="" alt="" style="height: 4rem;">
     
-    <div class="container-dois">
-        <div class="grafico-principal">
-            
-              <canvas id="myChart" class="grafico"></canvas>
-                
-            
-        </div>
-        <div class="kpis">
-        <div class="temp-um">
-
-          <canvas id="primo" class="grafico-um"></canvas>   
-                 
-        </div>
-        <div class="temp-dois">
-
-          <canvas id="secu" class="grafico-um"></canvas>
-        
-        </div>
-        <div class="temp-tres">
-
-          <canvas id="terc" class="grafico-um"></canvas>
-
-        </div>
-        </div>
-        
-    </div>
-    <div id="despir"></div>
+    <img src="" alt="" style="height: 2rem;">
+    <img src="" alt="" style="height: 2rem;">
+    <img src="" alt="" style="height: 2rem;">
+    <img src="../../Site/public/assets/imgs/logo.png" alt="" style="height: 2rem;">
+  </div>
   
+  
+  <div class="lateral-direita">
+
+    <div class="box-primaria">
+      <div class="part-um" >
+        
+        
+          <canvas id="primo" class="tamanho"></canvas>
+        
+      </div> 
+      <div class="part-um"> 
+       
+       
+          <canvas id="secu" class="tamanho"></canvas>
+        
+      </div>
+      <div class="part-um"> 
+       
+       
+          <canvas id="terc" class="tamanho"></canvas>
+        
+      </div>
+    </div>
+
+    <div class="box-secundaria">
+
+      <canvas id="grafico" class="pardal"></canvas>
+    </div>
+
     
+
+
+  </div>
+
+
+  
+ 
+</div>
+
+
+<div class="pernas">
+
+  <div class="graficos-grupo">
+    <div class="part-tres">
+      <canvas id="g-um"></canvas>
+    </div>
+
+
+    <div class="part-tres">
+      <canvas id="g-dois"></canvas>
+    </div>
+
+    <div class="part-tres">
+      <canvas id="g-tres"></canvas>
+    </div>
+  </div>
+  
+</div>
+
+</div>
+
+
 </body>
 </html>
 
 
 <script>
-  var teste;
+  
+  
+</script>
+
+<script>
+  var teste = [];
   var id=[];
   var temperatura = [];
   var ram = [];
   var frequencia = [];
+  var disco = [];
+  
   fetch("/medidas/ultimas/1", {
     method: "GET",
     headers: {
@@ -130,6 +166,7 @@
             temperatura.push(linha.temperatura);
             ram.push(linha.ram);
             frequencia.push(linha.frequencia);
+            disco.push(linha.disco);
           });
           console.log(json)
           teste = json;
@@ -138,58 +175,55 @@
     }  
   
   )
-    despir.innerHTML 
-  
-</script>
+    
+ 
+ // principal
+ let linha = document.getElementById('grafico')
+ let lin = new Chart(linha, {
+   type: 'bar', 
+   data: {labels: ['Temperatura °C'], 
+ datasets: [{
+   label: 'Média de temperatura geral',
+   backgroundColor:['rgb(250, 237, 39)'],
+   data:[44.2]
+ }]}
+ });
+//
 
-<script>
-    let ctx = document.getElementById('myChart');
-    let chart = new Chart(ctx, {
-    type: 'line',
-    data: {labels: ['1H', '2H', '3H', '4H', '5H', '6H', '7H'],
-    datasets:[{
-        // Legenda
-        label: 'temperatura da CPU principal',
-        // Define-se a cor da linha.
-        borderColor: 'rgb(57,255,20)',
-        // Dados a serem inseridos nas barras
-        data: [temperatura],
-    }]},
-    options: {
-      elements: {
-        line: {
-            tension: 0
-        }
-    }
-    }
-});
 
-  let primeiro = document.getElementById('primo')
+
+
+//primeiro de cima
+let primeiro = document.getElementById('primo')
   let primus = new Chart(primeiro, {
     type: 'doughnut', 
-    data: {labels: ['Temperatura CPU2 em °C'], 
+    data: {labels: ['Temperatura CPU1 em °C'], 
   datasets: [{
     label: 'Uso da CPU',
     backgroundColor:['rgb(250, 237, 39)'],
-    data:[ram]
+    data:[100,22]
   }]}
   });
+//
 
+// segundo de cima
   let segundo = document.getElementById('secu')
   let secus = new Chart(segundo, {
     type: 'doughnut', 
-    data: {labels: ['Temperatura CPU3 em °C'], 
+    data: {labels: ['Temperatura CPU2 em °C'], 
   datasets: [{
     label: 'Uso da CPU',
     backgroundColor:['rgb(255, 0, 0)'],
     data:[90, 20]
   }]}
   });
+//
 
+// terceiro de cima
   let terceiro = document.getElementById('terc')
   let tercius = new Chart(terceiro, {
     type: 'doughnut', 
-    data: {labels: ['Temperatura CPU4 em °C'], 
+    data: {labels: ['Temperatura CPU3 em °C'], 
   datasets: [{
     label: 'Uso da CPU',
     backgroundColor:['rgb(57, 255, 20)'],
@@ -197,5 +231,51 @@
       
   }]}
   });
+//
 
+
+// primeiro inferior
+let primo_inf = document.getElementById('g-um')
+  let primus_inf = new Chart(primo_inf, {
+    type: 'line', 
+    data: {labels: ['frequência de CPU'], 
+  datasets: [{
+    label: 'CPU',
+    backgroundColor:['rgb(57, 255, 20)'],
+    data:[100,22,111,22,33,1,33,141],
+      
+  }]}
+  });
+//
+
+// segundo inferior
+let secu_inf = document.getElementById('g-dois')
+  let secus_inf = new Chart(secu_inf, {
+    type: 'line', 
+    data: {labels: ['uso de Disco'], 
+  datasets: [{
+    label: 'Disco',
+    backgroundColor:['rgb(57, 255, 20)'],
+    data:[30,80,12,334,212,1],
+      
+  }]}
+  });
+//
+
+// terceiro inferior
+let terc_inf = document.getElementById('g-tres')
+  let tercis_inf = new Chart(terc_inf, {
+    type: 'line', 
+    data: {labels: ['uso de RAM'], 
+  datasets: [{
+    label: 'RAM',
+    backgroundColor:['rgb(57, 255, 20)'],
+    data:[123,111,32,444,1],
+      
+  }]}
+  });
+//
+
+
+ 
 </script>
