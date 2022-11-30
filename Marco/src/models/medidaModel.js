@@ -8,7 +8,7 @@ function buscarUltimasMedidas(idCPU, limite_linhas) {
                         disco
                     from CPU_metricas
                     where fk_Cpu = ${idCPU}
-                    order by idCPU desc limit ${limite_linhas}`;
+                    order by idCPU desc limit 100`;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }

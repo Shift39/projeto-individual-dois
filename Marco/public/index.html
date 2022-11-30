@@ -127,7 +127,11 @@
       <canvas id="g-tres"></canvas>
     </div>
   </div>
-  
+
+
+  <button onclick="obter()">nada</button>
+  <button onclick="plotar()">tudo</button>
+  <button onclick="plotarInferior()">entãocomoéqé</button>
 </div>
 
 </div>
@@ -138,11 +142,6 @@
 
 
 <script>
-  
-  
-</script>
-
-<script>
   var teste = [];
   var id=[];
   var temperatura = [];
@@ -150,6 +149,11 @@
   var frequencia = [];
   var disco = [];
   var media;
+
+
+function obter() {
+    
+  
   fetch("/medidas/ultimas/1", {
     method: "GET",
     headers: {
@@ -166,7 +170,7 @@
 
 
 
-          for (let i = 0; i < 7; i++) {
+          for (let i = 0; i < 100; i++) {
           //definindo variaveis que receberam os dados do banco
           teste = json;
           temperatura.push(teste[i].temperatura)
@@ -179,7 +183,69 @@
           console.log(temperatura)
           console.log(media)
 
-          //primeiro de cima
+  
+    }
+)}  
+  
+)
+fetch("/media/media/1", {
+    method: "GET",
+    headers: {
+        "content-Type": "application/json"
+    }
+    
+  }).then(
+
+    (res) => {
+      res.json()
+      .then(
+        (json) => {
+
+            
+            media = json[0].media 
+            console.log(media)
+
+  
+    }
+)}  
+  
+)
+ 
+
+ 
+ 
+
+
+
+
+
+
+} 
+</script>
+<script>
+function plotar() {
+
+  // principal
+  let linha = document.getElementById('grafico').getContext("2d");
+  let lin = new Chart(linha, {
+  type: 'bar', 
+  data: {labels: ["setor 1"], 
+  datasets: [{
+    label: "Media de temperatura do setor",
+    fillColor: "rgba(220,220,220,0.2)",
+    strokeColor: "rgba(220,220,220,1)",
+    pointColor: "rgba(220,220,220,1)",
+    pointStrokeColor: "#fff",
+    pointHighlightFill: "#fff",
+    pointHighlightStroke: "rgba(220,220,220,1)",
+  data:[media]
+  
+  }]}
+  });  
+  //
+
+
+  //primeiro de cima
   let primeiro = document.getElementById('primo')
   let primus = new Chart(primeiro, {
   type: 'doughnut', 
@@ -222,109 +288,86 @@
   });
     //
 
+  
+}
+</script>
 
-    // primeiro inferior
-    let primo_inf = document.getElementById('g-um')
-    let primus_inf = new Chart(primo_inf, {
-    type: 'line', 
-    data: {labels: ["1H","2H","3H","4H","5H","6H","7H"], 
-  datasets: [{
-    label: 'CPU',
-    backgroundColor:['rgb(57, 255, 20)'],
-    data:[frequencia[0],frequencia[1],frequencia[2],frequencia[3],frequencia[4],frequencia[5],frequencia[6]],
-    fill: false
-      
+<script>
+  var i = 0;
+
+  
+  // primeiro inferior
+  let primo_inf = document.getElementById('g-um')
+  let  primus_inf = new Chart(primo_inf, {
+      type: 'line', 
+      data: {labels: [], 
+    datasets: [{
+      label: 'CPU',
+      backgroundColor:['rgb(57, 255, 20)'],
+      data:[],
+      fill: false
+        
+      }]}
+      });
+      //
+  
+      // segundo inferior
+      let secu_inf = document.getElementById('g-dois')
+      let secus_inf = new Chart(secu_inf, {
+      type: 'line', 
+      data: {labels: [], 
+    datasets: [{
+      label: 'Disco',
+      backgroundColor:['rgb(57, 255, 20)'],
+      data:[],
+      fill: false
     }]}
     });
-    //
-
-    // segundo inferior
-    let secu_inf = document.getElementById('g-dois')
-    let secus_inf = new Chart(secu_inf, {
-    type: 'line', 
-    data: {labels: ["1H","2H","3H","4H","5H","6H","7H"], 
-  datasets: [{
-    label: 'Disco',
-    backgroundColor:['rgb(57, 255, 20)'],
-    data:[disco[0],disco[1],disco[2],disco[3],disco[4],disco[5],disco[6]],
-    fill: false
-  }]}
-  });
-    //
-
-    // terceiro inferior
-    let terc_inf = document.getElementById('g-tres')
-    let tercis_inf = new Chart(terc_inf, {
-    type: 'line', 
-    data: {labels: ["1H","2H","3H","4H","5H","6H","7H"], 
-  datasets: [{
-    label: 'RAM',
-    backgroundColor:['rgb(57, 255, 20)'],
-    data:[ram[0],ram[1],ram[2],ram[3],ram[4],ram[5],ram[6]],
-    fill: false
-  }]}
+      //
+  
+      // terceiro inferior
+      let terc_inf = document.getElementById('g-tres')
+      let tercis_inf = new Chart(terc_inf, {
+      type: 'line', 
+      data: {labels: [], 
+    datasets: [{
+      label: 'RAM',
+      backgroundColor:['rgb(57, 255, 20)'],
+      data:[],
+      fill: false
+    }]}
+        
+    });
+      //
+  
       
-  });
-    //
-
-
-          
   
-
-    }
-)}  
-  
-)
-fetch("/media/media/1", {
-    method: "GET",
-    headers: {
-        "content-Type": "application/json"
-    }
+  function plotarInferior() {
     
-  }).then(
+    /*setInterval(function () {
+    i++
+    },1000);*/
 
-    (res) => {
-      res.json()
-      .then(
-        (json) => {
+      
+    i++
 
-            
-            media = json[0].media 
-            console.log(media)
+        primus_inf.data.labels.push(i + "H")
+        primus_inf.data.datasets[0].data.push(frequencia[i])
+        primus_inf.update();
 
-            // principal
-  let linha = document.getElementById('grafico').getContext("2d");
-  let lin = new Chart(linha, {
-  type: 'bar', 
-  data: {labels: ["setor 1"], 
-  datasets: [{
-    label: "Media de temperatura do setor",
-    fillColor: "rgba(220,220,220,0.2)",
-    strokeColor: "rgba(220,220,220,1)",
-    pointColor: "rgba(220,220,220,1)",
-    pointStrokeColor: "#fff",
-    pointHighlightFill: "#fff",
-    pointHighlightStroke: "rgba(220,220,220,1)",
-  data:[media]
+        secus_inf.data.labels.push(i + "H")
+        secus_inf.data.datasets[0].data.push(disco[i])
+        secus_inf.update();
+        
+        tercis_inf.data.labels.push(i + "H")
+        tercis_inf.data.datasets[0].data.push(ram[i])
+        tercis_inf.update();
+       
+    
+    
+      
+
+  }
   
-  }]}
-  });  
-  //
 
-    }
-)}  
-  
-)
- 
-
- 
- 
-
-
-
-
-
-
-
- 
-</script>
+  </script>

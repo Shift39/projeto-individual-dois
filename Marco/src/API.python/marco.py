@@ -14,7 +14,7 @@ con = conector.connect(user='aluno', password='sptech',
 cursor = con.cursor();
 
 i=0;
-contador=20;
+contador=100;
 
 CPU=[]
 RAM=[]
@@ -43,7 +43,7 @@ while(i<contador):
     con.commit()
     cursor.execute(f"select * from CPU_metricas")
     resultado = cursor.fetchall() # fetchone
-    print(resultado)
+    print(cpu)
     # TEMPERATURA.append(temp);  
 
    
