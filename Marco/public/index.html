@@ -129,9 +129,7 @@
   </div>
 
 
-  <button onclick="obter()">nada</button>
-  <button onclick="plotar()">tudo</button>
-  <button onclick="plotarInferior()">entãocomoéqé</button>
+  
 </div>
 
 </div>
@@ -151,7 +149,7 @@
   var media;
 
 
-function obter() {
+setTimeout(function obter() {
     
   
   fetch("/medidas/ultimas/1", {
@@ -173,7 +171,7 @@ function obter() {
           for (let i = 0; i < 100; i++) {
           //definindo variaveis que receberam os dados do banco
           teste = json;
-          temperatura.push(teste[i].temperatura)
+          temperatura.push(teste[0].temperatura)
           ram.push(teste[i].ram)
           frequencia.push(teste[i].frequencia)
           disco.push(teste[i].disco)
@@ -210,25 +208,15 @@ fetch("/media/media/1", {
 )}  
   
 )
- 
-
- 
- 
-
-
-
-
-
-
-} 
+} , 1000);
 </script>
 <script>
-function plotar() {
+setTimeout(function plotar() {
 
   // principal
   let linha = document.getElementById('grafico').getContext("2d");
   let lin = new Chart(linha, {
-  type: 'bar', 
+  type: 'polarArea', 
   data: {labels: ["setor 1"], 
   datasets: [{
     label: "Media de temperatura do setor",
@@ -238,7 +226,7 @@ function plotar() {
     pointStrokeColor: "#fff",
     pointHighlightFill: "#fff",
     pointHighlightStroke: "rgba(220,220,220,1)",
-  data:[media]
+  data:[media,110]
   
   }]}
   });  
@@ -248,12 +236,12 @@ function plotar() {
   //primeiro de cima
   let primeiro = document.getElementById('primo')
   let primus = new Chart(primeiro, {
-  type: 'doughnut', 
+  type: 'polarArea', 
   data: {labels: ["CPU1"], 
   datasets: [{
   label: 'Uso da CPU',
   backgroundColor:['green'],
-  data:[temperatura[0],50],
+  data:[10,temperatura[0]],
   fill: false
   }]}
   });
@@ -262,12 +250,12 @@ function plotar() {
         // segundo de cima
   let segundo = document.getElementById('secu')
   let secus = new Chart(segundo, {
-    type: 'doughnut', 
+    type: 'polarArea', 
     data: {labels: ["CPU2"], 
   datasets: [{
     label: 'Uso da CPU',
     backgroundColor:['rgb(255, 0, 0)'],
-    data:[teste[0].temperatura, 5],
+    data:[10,teste[0].temperatura],
     fill: false
   }]}
   });
@@ -276,12 +264,12 @@ function plotar() {
     // terceiro de cima
   let terceiro = document.getElementById('terc')
   let tercius = new Chart(terceiro, {
-    type: 'doughnut', 
+    type: 'polarArea', 
     data: {labels: ["CPU3"], 
   datasets: [{
     label: 'Uso da CPU',
     backgroundColor:['yellow'],
-    data:[teste[0].temperatura, 10],
+    data:[10,teste[0].temperatura],
     fill: false
       
   }]}
@@ -289,7 +277,7 @@ function plotar() {
     //
 
   
-}
+}, 1200);
 </script>
 
 <script>
@@ -342,7 +330,7 @@ function plotar() {
   
       
   
-  function plotarInferior() {
+  setInterval(function plotarInferior(){
     
     /*setInterval(function () {
     i++
@@ -367,7 +355,7 @@ function plotar() {
     
       
 
-  }
+  },5000);
   
 
   </script>

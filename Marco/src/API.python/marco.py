@@ -14,7 +14,7 @@ con = conector.connect(user='aluno', password='sptech',
 cursor = con.cursor();
 
 i=0;
-contador=100;
+contador=200;
 
 CPU=[]
 RAM=[]
