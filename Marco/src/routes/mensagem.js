@@ -6,7 +6,7 @@ var mensagemModel = require("../models/mensagemModel")
 
 
 
-router.get("/mensagem/numero", function (req, res){
+router.get("/numero", function (req, res){
 
     mensagemModel.enviarSMS(req, res);
 });

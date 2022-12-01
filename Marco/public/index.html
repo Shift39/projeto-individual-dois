@@ -127,7 +127,7 @@
       <canvas id="g-tres"></canvas>
     </div>
   </div>
-
+  <button onclick="mensagem()">nada</button>
 
   
 </div>
@@ -210,6 +210,7 @@ fetch("/media/media/1", {
 )
 } , 1000);
 </script>
+
 <script>
 setTimeout(function plotar() {
 
@@ -359,3 +360,26 @@ setTimeout(function plotar() {
   
 
   </script>
+
+<script>
+  function mensagem() {
+    fetch("/mensagem/numero", {
+    method: "GET",
+    headers: {
+        "content-Type": "application/json"
+    }
+    
+  }).then(
+
+    (res) => {
+      res.json()
+      .then(
+        (json) => {
+          
+    }
+)}  
+  
+)  
+  }
+  
+</script>

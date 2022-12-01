@@ -10,6 +10,8 @@ const app = express();
 
 const medidasRouter = require("./src/routes/medidas");
 const mediaRouter = require("./src/routes/media");
+const mensagemRouter = require("./src/routes/mensagem");
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false}));
@@ -19,6 +21,7 @@ app.use(cors());
 
 app.use('/medidas', medidasRouter);
 app.use('/media', mediaRouter);
+app.use('/mensagem', mensagemRouter)
 
 
 app.listen(PORTA, function(){
