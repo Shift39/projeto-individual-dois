@@ -7,6 +7,8 @@ import gzip
 import json
 import sys
 
+from gpiozero import CPUTemperature
+
 
 con = conector.connect(user='aluno', password='sptech',
                               host='127.0.0.1',
@@ -28,7 +30,9 @@ while(i<contador):
     cpu = psutil.cpu_percent(4);
     ram = psutil.virtual_memory()[2] / 10
     disco = round(psutil.disk_usage('/').total/(1024*1024*1024),1)
-   
+    temp = wmi.WMI(namespace="root\\wmi")
+    cpu_temp = CPUTemperature()
+
 
     # CSV_URL="http://192.168.101.5:8085"
 
@@ -44,6 +48,7 @@ while(i<contador):
     cursor.execute(f"select * from CPU_metricas")
     resultado = cursor.fetchall() # fetchone
     print(cpu)
+    print(cpu.temperature)
     # TEMPERATURA.append(temp);  
 
    
